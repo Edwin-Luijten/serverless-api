@@ -1,6 +1,7 @@
 {
   "name": "@serverless-api/core",
   "main": "./src/index.ts",
+  "version": "0.0.0",
   "dependencies": {
     "path-to-regexp": "^6.2.1"
   }

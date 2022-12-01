@@ -1,6 +1,7 @@
 {
   "name": "@serverless-api/aws-lambda",
   "main": "./src/index.ts",
+  "version": "0.0.0",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.109"
   }
