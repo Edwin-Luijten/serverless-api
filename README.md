@@ -1,6 +1,6 @@
-# Serverless Router
+# Serverless Api
 
-This library tries to create a single developing experience between AWS Lambda and Google Cloud Functions.
+This library tries to create a single developer experience between AWS Lambda and Google Cloud Functions.
 
 ## Installation
 
