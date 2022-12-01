@@ -33,7 +33,7 @@ const api = createApi({
 api.get('/', (req: Request, res: Response) => res.sendStatus(200));
 
 // url: api/articles/hello-world
-api.get('/articles/:slug', (req: Request, res: Response) => {
+api.get('/articles/:slug', (req: Request<slug: string>, res: Response) => {
     const {slug} = req.params;
 
     return res.json({slug});
@@ -57,7 +57,7 @@ const api = createApi({
 api.get('/', (req: Request, res: Response) => res.sendStatus(200));
 
 // url: api/articles/hello-world
-api.get('/articles/:slug', (req: Request, res: Response) => {
+api.get('/articles/:slug', (req: Request<slug: string>, res: Response) => {
     const {slug} = req.params;
 
     return res.json({slug});
