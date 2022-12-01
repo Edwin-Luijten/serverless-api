@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@serverless-api/google-cloud-functions",
   "main": "./src/index.ts"
 }

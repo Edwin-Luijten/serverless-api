@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@serverless-api/core",
   "main": "./src/index.ts",
   "dependencies": {

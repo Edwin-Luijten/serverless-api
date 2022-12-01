@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@serverless-api/aws-lambda",
   "main": "./src/index.ts",
   "devDependencies": {
