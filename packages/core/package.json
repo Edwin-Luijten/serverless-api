@@ -1,5 +1,5 @@
 {
-  "name": "@serverless-api/core",
+  "name": "@serverless_api/core",
   "main": "./src/index.ts",
   "version": "0.0.0",
   "dependencies": {

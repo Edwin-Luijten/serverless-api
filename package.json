@@ -1,5 +1,5 @@
 {
-  "name": "@serverless-api/serverless-api",
+  "name": "@serverless_api/serverless_api",
   "version": "0.0.0",
   "description": "Lightweight web framework for your serverless applications",
   "main": "index.js",
@@ -22,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Edwin-Luijten/serverless-api.git"
+    "url": "git+ssh://git@github.com/Edwin-Luijten/serverless_api.git"
   },
   "bugs": {
-    "url": "https://github.com/Edwin-Luijten/serverless-api/issues"
+    "url": "https://github.com/Edwin-Luijten/serverless_api/issues"
   },
-  "homepage": "https://github.com/Edwin-Luijten/serverless-api#readme"
+  "homepage": "https://github.com/Edwin-Luijten/serverless_api#readme"
 }

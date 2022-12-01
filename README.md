@@ -7,13 +7,13 @@ This library tries to create a single developer experience between AWS Lambda an
 ### AWS Lambda
 
 ```shell
-npm install @serverless-api/core @serverless-api/aws-lambda
+npm install @serverless_api/core @serverless_api/aws-lambda
 ```
 
 ### Google Cloud Functions
 
 ```shell
-npm install @serverless-api/core @serverless-api/google-cloud-functions
+npm install @serverless_api/core @serverless_api/google-cloud-functions
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ npm install @serverless-api/core @serverless-api/google-cloud-functions
 ### AWS Lambda
 
 ```typescript
-import { Request, Response } from '@serverless-api/core';
-import { createApi } from '@serverless-api/aws-lambda';
+import { Request, Response } from '@serverless_api/core';
+import { createApi } from '@serverless_api/aws-lambda';
 
 const api = createApi({
     version: '1.0.0',
@@ -45,8 +45,8 @@ export const handle = async (event: APIGatewayEvent, context: Context) => await 
 ### Google Cloud Functions
 
 ```typescript
-import { Request, Response } from '@serverless-api/core';
-import { createApi } from '@serverless-api/google-cloud-functions';
+import { Request, Response } from '@serverless_api/core';
+import { createApi } from '@serverless_api/google-cloud-functions';
 
 const api = createApi({
     version: '1.0.0',

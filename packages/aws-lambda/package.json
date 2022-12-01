@@ -1,5 +1,5 @@
 {
-  "name": "@serverless-api/aws-lambda",
+  "name": "@serverless_api/aws-lambda",
   "main": "./src/index.ts",
   "version": "0.0.0",
   "devDependencies": {
