@@ -1,0 +1,31 @@
+{
+  "name": "@serverless-api/serverless-api",
+  "version": "0.0.0",
+  "description": "Lightweight web framework for your serverless applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edwin Luijten",
+  "license": "ISC",
+  "workspaces": [
+    "packages/core",
+    "packages/aws-lambda",
+    "packages/google-cloud-functions"
+  ],
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.9"
+  },
+  "dependencies": {
+    "path-to-regexp": "^6.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Edwin-Luijten/serverless-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Edwin-Luijten/serverless-api/issues"
+  },
+  "homepage": "https://github.com/Edwin-Luijten/serverless-api#readme"
+}

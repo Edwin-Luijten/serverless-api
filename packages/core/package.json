@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@serverless-api/core",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "path-to-regexp": "^6.2.1"
+  }
+}
