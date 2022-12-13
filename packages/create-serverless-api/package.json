@@ -1,0 +1,29 @@
+{
+  "name": "@servlerss_api/create-serverless-api",
+  "version": "0.0.0",
+  "description": "Create serverless api's",
+  "author": "edwin.luijten@live.nl",
+  "license": "MIT",
+  "bin": {
+    "create-serverless-api": "bin/installer.js"
+  },
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "files": [
+    "bin/index.js",
+    "bin/installer.js"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.4.1",
+    "cross-spawn": "^7.0.3",
+    "fs-extra": "^11.1.0",
+    "semver": "^7.3.8"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.2",
+    "@types/fs-extra": "^9.0.13",
+    "@types/semver": "^7.3.13"
+  }
+}
