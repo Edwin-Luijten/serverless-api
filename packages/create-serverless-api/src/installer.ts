@@ -25,10 +25,15 @@ export function init() {
         .on('--help', () => {
             console.log(`    Only ${chalk.green('<project-directory>')} is required.`);
         })
-        .argument('<type>')
-        .usage(`${chalk.green('aws-lambda or google-cloud-functions')}`)
-        .action(name => {
-            type = name;
+        .option('--aws-lambda', 'Use with AWS Lambda')
+        .action(() => {
+            type = 'aws-lambda';
+            console.log('type', type);
+        })
+        .option('--google-cloud-functions', 'Use with Google Cloud Functions')
+        .action(() => {
+            type = 'google-cloud-functions';
+            console.log('type', type);
         })
         .on('--help', () => {
             console.log(`    Only ${chalk.green('<type>')} is required.`);
