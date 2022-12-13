@@ -231,7 +231,7 @@ function checkThatNpmCanReadCwd() {
 }
 
 function run(root: string, appName: string, originalDirectory: string, type: string) {
-    console.log(customDependencies);
+    console.log(commonDependencies, customDependencies);
     const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
     const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev)
     console.log('Installing packages. This might take a couple of minutes.');
