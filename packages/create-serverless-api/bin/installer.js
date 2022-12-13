@@ -52,19 +52,14 @@ function init() {
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<project-directory>')} is required.`);
     })
-        .option('--aws-lambda', 'Use with AWS Lambda')
-        .action(() => {
-        type = 'aws-lambda';
-        console.log('type', type);
-    })
-        .option('--google-cloud-functions', 'Use with Google Cloud Functions')
-        .action(() => {
-        type = 'google-cloud-functions';
-        console.log('type', type);
+        .option('<type>')
+        .usage(`${chalk_1.default.green('aws-lambda or google-cloud-functions')}`)
+        .action(name => {
+        type = name;
     })
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<type>')} is required.`);
-    }).parse(process.argv);
+    }).parse();
     checkLatestVersion().catch(() => {
         try {
             return (0, child_process_1.execSync)('npm view create-serverless-api version').toString().trim();
