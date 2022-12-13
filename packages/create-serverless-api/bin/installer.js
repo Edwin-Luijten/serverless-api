@@ -152,6 +152,8 @@ function createApp(name, type) {
     contents = contents.replace(/{{arg-name}}/g, appName);
     fs.writeFileSync(path.join(root, 'serverless.yaml'), contents, 'utf8');
     fs.copyFileSync(path.join(__dirname, `../templates/webpack.config.js`), path.join(root, 'webpack.config.js'));
+    fs.copyFileSync(path.join(__dirname, `../templates/env.txt`), path.join(root, 'env.txt'));
+    fs.copyFileSync(path.join(__dirname, `../templates/gitignore.txt`), path.join(root, 'gitignore.txt'));
     process.chdir(root);
     if (!checkThatNpmCanReadCwd()) {
         process.exit(1);
