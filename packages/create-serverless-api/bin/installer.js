@@ -58,7 +58,19 @@ const commonDependencies = {
         'serverless-webpack',
     ],
 };
-let customDependencies;
+const customDependencies = {
+    'aws-lambda': {
+        default: [],
+        dev: [
+            '@types/aws-sdk',
+            'aws-sdk',
+        ],
+    },
+    'google-cloud-functions': {
+        default: [],
+        dev: [],
+    }
+};
 function init() {
     const program = new commander_1.Command(package_json_1.default.name);
     program.arguments('<project-directory> <type>')
@@ -206,7 +218,6 @@ function checkThatNpmCanReadCwd() {
     return false;
 }
 function run(root, appName, originalDirectory, type) {
-    console.log(commonDependencies, customDependencies);
     const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
     const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev);
     console.log('Installing packages. This might take a couple of minutes.');

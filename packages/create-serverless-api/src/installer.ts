@@ -32,7 +32,7 @@ const commonDependencies = {
     ],
 }
 
-let customDependencies: {
+const customDependencies = {
     'aws-lambda': {
         default: [],
         dev: [
@@ -231,7 +231,6 @@ function checkThatNpmCanReadCwd() {
 }
 
 function run(root: string, appName: string, originalDirectory: string, type: string) {
-    console.log(commonDependencies, customDependencies);
     const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
     const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev)
     console.log('Installing packages. This might take a couple of minutes.');
