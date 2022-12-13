@@ -1,11 +1,11 @@
 {
-  "name": "@servlerss_api/create-serverless-api",
-  "version": "0.0.1",
+  "name": "@serverless_api/create-serverless-api",
+  "version": "0.0.2",
   "description": "Create serverless api's",
   "author": "edwin.luijten@live.nl",
   "license": "MIT",
   "bin": {
-    "create-serverless-api": "bin/installer.js"
+    "create-serverless-api": "bin/index.js"
   },
   "scripts": {
     "build": "npx tsc"

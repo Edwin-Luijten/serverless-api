@@ -23,7 +23,7 @@ This library tries to create a single developer experience between AWS Lambda an
 ### create-serverless-api
 
 ```shell
-npm create @serverless_api/create-serverless-api my-serverless-api
+npx @serverless_api/create-serverless-api my-serverless-api
 ```
 
 ### AWS Lambda
