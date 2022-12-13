@@ -145,8 +145,13 @@ function createApp(name, type) {
     fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2) + os.EOL);
     const originalDirectory = process.cwd();
     fs.ensureDirSync(path.join(root, 'src/handler'));
-    console.log(fs.existsSync(path.join(__dirname, `../templates/handler-${type}.ts`)));
     fs.copyFileSync(path.join(__dirname, `../templates/handler-${type}.ts`), path.join(root, 'src/handler/api.ts'));
+    fs.copyFileSync(path.join(__dirname, `../templates/serverless-${type}.yaml`), path.join(root, 'serverless.yaml'));
+    // Replace app name tag
+    let contents = fs.readFileSync(path.join(root, 'serverless.yaml'), 'utf8');
+    contents = contents.replace(/{{arg-name}}/g, appName);
+    fs.writeFileSync(path.join(root, 'serverless.yaml'), contents, 'utf8');
+    fs.copyFileSync(path.join(__dirname, `../templates/webpack.config.js`), path.join(root, 'webpack.config.js'));
     process.chdir(root);
     if (!checkThatNpmCanReadCwd()) {
         process.exit(1);
