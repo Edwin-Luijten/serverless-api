@@ -45,7 +45,9 @@ function init() {
     program.argument('<project-directory>')
         .usage(`${chalk_1.default.green('<project-directory>')} [options]`)
         .action(name => {
+        console.debug('dir', name);
         projectName = name;
+        console.debug('project name', name);
     })
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<project-directory>')} is required.`);
@@ -76,6 +78,7 @@ function init() {
             console.log();
         }
         else {
+            console.debug('typeof project name', typeof projectName);
             if (typeof projectName === 'undefined') {
                 console.error('Please specify the project directory:');
                 console.log(`    ${chalk_1.default.cyan(program.name())} ${chalk_1.default.green('<project-directory>')}`);
