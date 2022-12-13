@@ -1,0 +1,38 @@
+service: {{arg-name}}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-import-apigateway
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  endpointType: REGIONAL
+  stage: testing
+  region: ${env:AWS_DEFAULT_REGION}
+
+custom:
+  vpc:
+    securityGroupIds:
+      - 'Fn::ImportValue': ${env:STACK_NAME}-lambda-security-group
+    subnetIds:
+      - 'Fn::ImportValue': ${env:STACK_NAME}-lambda-subnet-1
+      - 'Fn::ImportValue': ${env:STACK_NAME}-lambda-subnet-2
+  importApiGateway:
+    name: ${self:provider.stage}-common
+    path: /
+    resources:
+      - /api
+
+functions:
+  api:
+    handler: ./src/handler/api.handle
+    vpc: ${self:custom.vpc}
+    events:
+      - http:
+          cors:
+            origin: '*'
+            headers: '*'
+            allowCredentials: true
+          method: any
+          path: api/{proxy+}
