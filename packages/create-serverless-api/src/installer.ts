@@ -140,7 +140,7 @@ function createApp(name: string, type: string) {
 
     const originalDirectory = process.cwd();
 
-    fs.copyFileSync(path.join(__dirname, `templates/handler-${type}.ts`), path.join(root, 'src/handler/api.ts'));
+    fs.copyFileSync(path.join(__dirname, `../templates/handler-${type}.ts`), path.join(root, 'src/handler/api.ts'));
 
     process.chdir(root);
     if (!checkThatNpmCanReadCwd()) {
