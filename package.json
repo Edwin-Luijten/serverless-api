@@ -21,9 +21,6 @@
     "lerna": "^6.1.0",
     "ts-node": "^10.9.1"
   },
-  "dependencies": {
-    "path-to-regexp": "^6.2.1"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Edwin-Luijten/serverless_api.git"
