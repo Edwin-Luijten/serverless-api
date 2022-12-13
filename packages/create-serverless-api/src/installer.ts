@@ -150,8 +150,8 @@ function createApp(name: string, type: string) {
     fs.writeFileSync(path.join(root, 'serverless.yaml'), contents, 'utf8');
 
     fs.copyFileSync(path.join(__dirname, `../templates/webpack.config.js`), path.join(root, 'webpack.config.js'));
-    fs.copyFileSync(path.join(__dirname, `../templates/.env`), path.join(root, '.env'));
-    fs.copyFileSync(path.join(__dirname, `../templates/.gitignore`), path.join(root, '.gitignore'));
+    fs.copyFileSync(path.join(__dirname, `../templates/env.txt`), path.join(root, 'env.txt'));
+    fs.copyFileSync(path.join(__dirname, `../templates/gitignore.txt`), path.join(root, 'gitignore.txt'));
 
     process.chdir(root);
     if (!checkThatNpmCanReadCwd()) {
