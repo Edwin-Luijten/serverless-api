@@ -1,7 +1,7 @@
 {
   "name": "@serverless_api/core",
   "main": "./src/index.ts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "@serverless_api/router": "^0.0.0"
   }
