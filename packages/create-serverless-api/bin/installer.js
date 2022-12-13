@@ -40,6 +40,25 @@ const os = __importStar(require("os"));
 const cross_spawn_1 = __importDefault(require("cross-spawn"));
 let projectName;
 let type;
+const commonDependencies = {
+    default: [
+        '@serverless_api/core',
+    ],
+    dev: [
+        '@types/node',
+        'ts-loader',
+        'ts-node',
+        'typescript',
+        'webpack',
+        'webpack-cli',
+        'webpack-node-externals',
+        'serverless',
+        'serverless-dotenv-plugin',
+        'serverless-plugin-typescript',
+        'serverless-webpack',
+    ],
+};
+let customDependencies;
 function init() {
     const program = new commander_1.Command(package_json_1.default.name);
     program.arguments('<project-directory> <type>')
@@ -75,7 +94,6 @@ function init() {
             console.log();
         }
         else {
-            console.debug('typeof project name', typeof projectName);
             if (typeof projectName === 'undefined') {
                 console.error('Please specify the project directory:');
                 console.log(`    ${chalk_1.default.cyan(program.name())} ${chalk_1.default.green('<project-directory>')}`);
@@ -86,12 +104,22 @@ function init() {
                 console.log(`Run ${chalk_1.default.cyan(`${program.name()} --help`)} to see all options.`);
                 process.exit(1);
             }
-            createApp(projectName);
+            if (typeof type === 'undefined') {
+                console.error('Please specify the project type:');
+                console.log(`    ${chalk_1.default.cyan(program.name())} ${chalk_1.default.green('<type>')}`);
+                console.log();
+                console.log('For example:');
+                console.log(`    ${chalk_1.default.cyan(program.name())} ${chalk_1.default.green('my-serverless-api')} ${chalk_1.default.cyan('aws-lambda')}`);
+                console.log();
+                console.log(`Run ${chalk_1.default.cyan(`${program.name()} --help`)} to see all options.`);
+                process.exit(1);
+            }
+            createApp(projectName, type);
         }
     });
 }
 exports.init = init;
-function createApp(name) {
+function createApp(name, type) {
     const root = path.resolve(name);
     const appName = path.basename(root);
     fs.ensureDirSync(name);
@@ -108,7 +136,7 @@ function createApp(name) {
     if (!checkThatNpmCanReadCwd()) {
         process.exit(1);
     }
-    return run(root, appName, originalDirectory);
+    return run(root, appName, originalDirectory, type);
 }
 function checkLatestVersion() {
     return new Promise((resolve, reject) => {
@@ -177,10 +205,11 @@ function checkThatNpmCanReadCwd() {
     }
     return false;
 }
-function run(root, appName, originalDirectory) {
-    const allDependencies = ['@serverless_api/core', `@serverless_api/${type}`];
+function run(root, appName, originalDirectory, type) {
+    const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
+    const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev);
     console.log('Installing packages. This might take a couple of minutes.');
-    return install(root, allDependencies).catch(reason => {
+    return install(root, dependencies).catch(reason => {
         console.log();
         console.log('Aborting installation.');
         if (reason.command) {
@@ -212,15 +241,14 @@ function run(root, appName, originalDirectory) {
         }
         console.log('Done.');
         process.exit(1);
-    });
+    }).then(() => install(root, devDependencies, true));
 }
-function install(root, dependencies) {
+function install(root, dependencies, dev = false) {
     return new Promise((resolve, reject) => {
         const command = 'npm';
         const args = [
             'install',
-            //'--no-audit', // https://github.com/facebook/create-react-app/issues/11174
-            '--save',
+            !dev ? '--save' : '--save-dev',
             '--save-exact',
             '--loglevel',
             'error',
