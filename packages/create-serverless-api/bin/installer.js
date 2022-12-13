@@ -123,7 +123,7 @@ function createApp(name, type) {
     const root = path.resolve(name);
     const appName = path.basename(root);
     fs.ensureDirSync(name);
-    console.log(`Creating a new Serverless api in ${chalk_1.default.green(root)}.`);
+    console.log(`Creating a new ${chalk_1.default.cyan(type)} api in ${chalk_1.default.green(root)}.`);
     console.log();
     const packageJson = {
         name: appName,
@@ -206,6 +206,7 @@ function checkThatNpmCanReadCwd() {
     return false;
 }
 function run(root, appName, originalDirectory, type) {
+    console.log(customDependencies);
     const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
     const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev);
     console.log('Installing packages. This might take a couple of minutes.');
