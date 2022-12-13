@@ -1,6 +1,6 @@
 {
   "name": "@serverless_api/create-serverless-api",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Create serverless api's",
   "author": "edwin.luijten@live.nl",
   "license": "MIT",
