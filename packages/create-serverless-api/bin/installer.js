@@ -68,8 +68,8 @@ function init() {
     }).then(latest => {
         if (latest && semver.lt(package_json_1.default.version, latest)) {
             console.log();
-            console.error(chalk_1.default.yellow(`You are running \`create-react-app\` ${package_json_1.default.version}, which is behind the latest release (${latest}).\n\n` +
-                'We recommend always using the latest version of create-react-app if possible.'));
+            console.error(chalk_1.default.yellow(`You are running \`create-serverless-api\` ${package_json_1.default.version}, which is behind the latest release (${latest}).\n\n` +
+                'We recommend always using the latest version of create-serverless-api if possible.'));
             console.log();
             console.log('The latest instructions for creating a new app can be found here:\n' +
                 '{{url}}');
@@ -113,7 +113,7 @@ function createApp(name) {
 function checkLatestVersion() {
     return new Promise((resolve, reject) => {
         https
-            .get('https://registry.npmjs.org/-/package/create-react-app/dist-tags', res => {
+            .get('https://registry.npmjs.org/-/package/@serverless_api/create-serverless-api/dist-tags', res => {
             if (res.statusCode === 200) {
                 let body = '';
                 res.on('data', data => (body += data));
