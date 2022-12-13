@@ -1,6 +1,6 @@
 {
   "name": "@serverless_api/create-serverless-api",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Create serverless api's",
   "author": "edwin.luijten@live.nl",
   "license": "MIT",
@@ -12,7 +12,8 @@
   },
   "files": [
     "bin/index.js",
-    "bin/installer.js"
+    "bin/installer.js",
+    "templates"
   ],
   "dependencies": {
     "chalk": "^4.1.2",
