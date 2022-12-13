@@ -52,10 +52,15 @@ function init() {
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<project-directory>')} is required.`);
     })
-        .argument('<type>')
-        .usage(`${chalk_1.default.green('aws-lambda or google-cloud-functions')}`)
-        .action(name => {
-        type = name;
+        .option('--aws-lambda', 'Use with AWS Lambda')
+        .action(() => {
+        type = 'aws-lambda';
+        console.log('type', type);
+    })
+        .option('--google-cloud-functions', 'Use with Google Cloud Functions')
+        .action(() => {
+        type = 'google-cloud-functions';
+        console.log('type', type);
     })
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<type>')} is required.`);
