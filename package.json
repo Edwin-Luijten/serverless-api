@@ -9,13 +9,16 @@
   "author": "Edwin Luijten",
   "license": "ISC",
   "workspaces": [
+    "packages/router",
     "packages/core",
     "packages/aws-lambda",
-    "packages/google-cloud-functions"
+    "packages/google-cloud-functions",
+    "packages/create-serverless-api"
   ],
   "devDependencies": {
     "@types/express": "^4.17.14",
-    "@types/node": "^18.11.9"
+    "@types/node": "^18.11.9",
+    "ts-node": "^10.9.1"
   },
   "dependencies": {
     "path-to-regexp": "^6.2.1"
