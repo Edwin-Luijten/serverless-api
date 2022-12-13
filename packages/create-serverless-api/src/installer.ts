@@ -13,6 +13,39 @@ import spawn from 'cross-spawn';
 let projectName: string | undefined;
 let type: string | undefined;
 
+const commonDependencies = {
+    default: [
+        '@serverless_api/core',
+    ],
+    dev: [
+        '@types/node',
+        'ts-loader',
+        'ts-node',
+        'typescript',
+        'webpack',
+        'webpack-cli',
+        'webpack-node-externals',
+        'serverless',
+        'serverless-dotenv-plugin',
+        'serverless-plugin-typescript',
+        'serverless-webpack',
+    ],
+}
+
+let customDependencies: {
+    'aws-lambda': {
+        default: [],
+        dev: [
+            '@types/aws-sdk',
+            'aws-sdk',
+        ],
+    },
+    'google-cloud-functions': {
+        default: [],
+        dev: [],
+    }
+};
+
 export function init() {
     const program = new Command(packageJson.name);
     program.arguments('<project-directory> <type>')
@@ -53,7 +86,6 @@ export function init() {
             );
             console.log();
         } else {
-            console.debug('typeof project name', typeof projectName);
             if (typeof projectName === 'undefined') {
                 console.error('Please specify the project directory:');
                 console.log(`    ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`);
@@ -67,12 +99,25 @@ export function init() {
                 process.exit(1);
             }
 
-            createApp(projectName);
+            if (typeof type === 'undefined') {
+                console.error('Please specify the project type:');
+                console.log(`    ${chalk.cyan(program.name())} ${chalk.green('<type>')}`);
+                console.log();
+                console.log('For example:');
+                console.log(`    ${chalk.cyan(program.name())} ${chalk.green('my-serverless-api')} ${chalk.cyan('aws-lambda')}`);
+                console.log();
+                console.log(
+                    `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
+                );
+                process.exit(1);
+            }
+
+            createApp(projectName, type);
         }
     });
 }
 
-function createApp(name: string) {
+function createApp(name: string, type: string) {
     const root = path.resolve(name);
     const appName = path.basename(root);
 
@@ -98,7 +143,7 @@ function createApp(name: string) {
         process.exit(1);
     }
 
-    return run(root, appName, originalDirectory);
+    return run(root, appName, originalDirectory, type);
 }
 
 function checkLatestVersion(): Promise<string> {
@@ -185,12 +230,12 @@ function checkThatNpmCanReadCwd() {
     return false;
 }
 
-function run(root: string, appName: string, originalDirectory: string) {
-    const allDependencies = ['@serverless_api/core', `@serverless_api/${type}`];
-
+function run(root: string, appName: string, originalDirectory: string, type: string) {
+    const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
+    const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev)
     console.log('Installing packages. This might take a couple of minutes.');
 
-    return install(root, allDependencies).catch(reason => {
+    return install(root, dependencies).catch(reason => {
         console.log();
         console.log('Aborting installation.');
         if (reason.command) {
@@ -228,16 +273,15 @@ function run(root: string, appName: string, originalDirectory: string) {
         }
         console.log('Done.');
         process.exit(1);
-    });
+    }).then(() => install(root, devDependencies, true));
 }
 
-function install(root: string, dependencies: string[]) {
+function install(root: string, dependencies: string[], dev: boolean = false) {
     return new Promise<void>((resolve, reject) => {
         const command = 'npm';
         const args = [
             'install',
-            //'--no-audit', // https://github.com/facebook/create-react-app/issues/11174
-            '--save',
+            !dev ? '--save' : '--save-dev',
             '--save-exact',
             '--loglevel',
             'error',
