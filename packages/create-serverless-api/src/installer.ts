@@ -15,24 +15,21 @@ let type: string | undefined;
 
 export function init() {
     const program = new Command(packageJson.name);
-    program.argument('<project-directory>')
-        .usage(`${chalk.green('<project-directory>')} [options]`)
-        .action(name => {
-            console.debug('dir', name);
+    program.arguments('<project-directory> <type>')
+        .usage(`${chalk.green('<project-directory>')} ${chalk.cyan('<type>')}`)
+        .action((name, t) => {
             projectName = name;
-            console.debug('project name', name);
+            type = t;
         })
         .on('--help', () => {
-            console.log(`    Only ${chalk.green('<project-directory>')} is required.`);
+            console.log(`    ${chalk.green('<project-directory>')} ${chalk.cyan('<type>')} are required.`);
+            console.log(`    ${chalk.cyan('<type>')} values can be aws-lambda or google-cloud-functions.`);
         })
         .option('<type>')
         .usage(`${chalk.green('aws-lambda or google-cloud-functions')}`)
-        .action(name => {
-            type = name;
-        })
         .on('--help', () => {
             console.log(`    Only ${chalk.green('<type>')} is required.`);
-        }).parse();
+        }).parse(process.argv);
 
     checkLatestVersion().catch(() => {
         try {

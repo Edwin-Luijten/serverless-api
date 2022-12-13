@@ -42,24 +42,21 @@ let projectName;
 let type;
 function init() {
     const program = new commander_1.Command(package_json_1.default.name);
-    program.argument('<project-directory>')
-        .usage(`${chalk_1.default.green('<project-directory>')} [options]`)
-        .action(name => {
-        console.debug('dir', name);
+    program.arguments('<project-directory> <type>')
+        .usage(`${chalk_1.default.green('<project-directory>')} ${chalk_1.default.cyan('<type>')}`)
+        .action((name, t) => {
         projectName = name;
-        console.debug('project name', name);
+        type = t;
     })
         .on('--help', () => {
-        console.log(`    Only ${chalk_1.default.green('<project-directory>')} is required.`);
+        console.log(`    ${chalk_1.default.green('<project-directory>')} ${chalk_1.default.cyan('<type>')} are required.`);
+        console.log(`    ${chalk_1.default.cyan('<type>')} values can be aws-lambda or google-cloud-functions.`);
     })
         .option('<type>')
         .usage(`${chalk_1.default.green('aws-lambda or google-cloud-functions')}`)
-        .action(name => {
-        type = name;
-    })
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<type>')} is required.`);
-    }).parse();
+    }).parse(process.argv);
     checkLatestVersion().catch(() => {
         try {
             return (0, child_process_1.execSync)('npm view create-serverless-api version').toString().trim();
