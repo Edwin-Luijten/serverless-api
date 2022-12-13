@@ -1,5 +1,7 @@
-.idea
-node_modules
-.npmrc
-./*.ts
-.log
+*
+!packages
+!lerna.json
+!package.json
+!package-lock.json
+!README.md
+!tsconfig.json
