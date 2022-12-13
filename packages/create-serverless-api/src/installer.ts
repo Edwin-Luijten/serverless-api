@@ -24,16 +24,15 @@ export function init() {
         })
         .on('--help', () => {
             console.log(`    Only ${chalk.green('<project-directory>')} is required.`);
-        });
-
-    program.argument('<type>')
+        })
+        .argument('<type>')
         .usage(`${chalk.green('aws-lambda or google-cloud-functions')}`)
         .action(name => {
             type = name;
         })
         .on('--help', () => {
             console.log(`    Only ${chalk.green('<type>')} is required.`);
-        });
+        }).parse(process.argv);
 
     checkLatestVersion().catch(() => {
         try {
@@ -106,7 +105,7 @@ function createApp(name: string) {
 }
 
 function checkLatestVersion(): Promise<string> {
-    return new Promise((resolve, reject)=> {
+    return new Promise((resolve, reject) => {
         https
             .get(
                 'https://registry.npmjs.org/-/package/@serverless_api/create-serverless-api/dist-tags',

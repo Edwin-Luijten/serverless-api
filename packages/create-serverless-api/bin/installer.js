@@ -51,15 +51,15 @@ function init() {
     })
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<project-directory>')} is required.`);
-    });
-    program.argument('<type>')
+    })
+        .argument('<type>')
         .usage(`${chalk_1.default.green('aws-lambda or google-cloud-functions')}`)
         .action(name => {
         type = name;
     })
         .on('--help', () => {
         console.log(`    Only ${chalk_1.default.green('<type>')} is required.`);
-    });
+    }).parse(process.argv);
     checkLatestVersion().catch(() => {
         try {
             return (0, child_process_1.execSync)('npm view create-serverless-api version').toString().trim();
