@@ -3,6 +3,6 @@
   "main": "./src/index.ts",
   "version": "0.0.0",
   "dependencies": {
-    "path-to-regexp": "^6.2.1"
+    "@serverless_api/router": "^0.0.0"
   }
 }
