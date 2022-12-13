@@ -2,7 +2,13 @@
 
 ---
 
+Supported environments:
+- Aws Lambda as `aws-lambda`
+- Google Cloud Functions as `google-cloud-functions`
+
 ## Installation
+
 ```shell
-npx @serverless_api/create-serverless-api my-serverless-project
+npx @serverless_api/create-serverless-api my-serverless-project aws-lambda
 ```
+
