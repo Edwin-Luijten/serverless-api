@@ -137,7 +137,11 @@ function createApp(name: string, type: string) {
         JSON.stringify(packageJson, null, 2) + os.EOL
     );
 
+
     const originalDirectory = process.cwd();
+
+    fs.copyFileSync(path.join(originalDirectory, `templates/handler-${type}.ts`), path.join(root, 'src/handler/api.ts'));
+    
     process.chdir(root);
     if (!checkThatNpmCanReadCwd()) {
         process.exit(1);
