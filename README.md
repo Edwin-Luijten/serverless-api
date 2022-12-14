@@ -149,7 +149,6 @@ export const handle = async (req: Request, res: Response) => await api.run(res, 
 
 ## Routing
 
----
 
 ### Stand-alone usage
 
