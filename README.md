@@ -19,6 +19,7 @@ TBD
 
 `@serverless-framework/create` allows you to setup your serverless project quick and easy.
 It comes with a project structure and basic handler to get you started.
+
 Included tools:
 
 - [Webpack](https://webpack.js.org/)
@@ -26,6 +27,7 @@ Included tools:
 - [Typescript](https://www.typescriptlang.org/)
 
 #### Usage
+
 ```shell
 Usage: @serverless-framework/create <project-directory> <type> [OPTIONS]
 
@@ -34,6 +36,7 @@ Options:
     <project-directory> <type> are required.
     <type> aws-lambda or google-cloud-functions.
 ```
+
 #### AWS Lambda
 
 ```shell
