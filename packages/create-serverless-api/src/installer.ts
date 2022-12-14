@@ -1,7 +1,9 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
+
 // @ts-ignore
 import packageJson from '../package.json';
+
 import { execSync } from 'child_process';
 import * as semver from 'semver';
 import * as https from 'https';
@@ -49,19 +51,14 @@ const customDependencies = {
 export function init() {
     const program = new Command(packageJson.name);
     program.arguments('<project-directory> <type>')
-        .usage(`${chalk.green('<project-directory>')} ${chalk.cyan('<type>')}`)
-        .action((name, t) => {
+        .usage(`npx ${program.name()} ${chalk.green('<project-directory>')} ${chalk.cyan('<type>')} [OPTIONS]`)
+        .action((name, _type) => {
             projectName = name;
-            type = t;
+            type = _type;
         })
         .on('--help', () => {
             console.log(`    ${chalk.green('<project-directory>')} ${chalk.cyan('<type>')} are required.`);
-            console.log(`    ${chalk.cyan('<type>')} values can be aws-lambda or google-cloud-functions.`);
-        })
-        .option('<type>')
-        .usage(`${chalk.green('aws-lambda or google-cloud-functions')}`)
-        .on('--help', () => {
-            console.log(`    Only ${chalk.green('<type>')} is required.`);
+            console.log(`    ${chalk.cyan('<type>')} aws-lambda or google-cloud-functions.`);
         }).parse(process.argv);
 
     checkLatestVersion().catch(() => {
@@ -76,38 +73,38 @@ export function init() {
             console.error(
                 chalk.yellow(
                     `You are running \`create-serverless-api\` ${packageJson.version}, which is behind the latest release (${latest}).\n\n` +
-                    'We recommend always using the latest version of create-serverless-api if possible.'
+                    `We recommend always using the latest version of create-serverless-api if possible.`
                 )
             );
             console.log();
             console.log(
-                'The latest instructions for creating a new app can be found here:\n' +
-                '{{url}}'
+                'The latest instructions for creating a new api can be found here:\n' +
+                'https://github.com/edwin-luijten/serverless-api'
             );
             console.log();
         } else {
             if (typeof projectName === 'undefined') {
                 console.error('Please specify the project directory:');
-                console.log(`    ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`);
+                console.log(`    npx ${chalk.grey(program.name())} ${chalk.green('<project-directory>')} ${chalk.grey('<type>')}`);
                 console.log();
                 console.log('For example:');
-                console.log(`    ${chalk.cyan(program.name())} ${chalk.green('my-serverless-api')}`);
+                console.log(`    npx ${chalk.grey(program.name())} ${chalk.green('my-serverless-api')} ${chalk.grey('aws-lambda')}`);
                 console.log();
                 console.log(
-                    `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
+                    `Run npx ${chalk.cyan(`${program.name()} --help`)} to see all options.`
                 );
                 process.exit(1);
             }
 
             if (typeof type === 'undefined') {
                 console.error('Please specify the project type:');
-                console.log(`    ${chalk.cyan(program.name())} ${chalk.green('<type>')}`);
+                console.log(`    npx ${chalk.grey(program.name())} ${chalk.grey('<project-directory>')} ${chalk.green('<type>')}`);
                 console.log();
                 console.log('For example:');
-                console.log(`    ${chalk.cyan(program.name())} ${chalk.green('my-serverless-api')} ${chalk.cyan('aws-lambda')}`);
+                console.log(`    npx ${chalk.grey(program.name())} ${chalk.grey('my-serverless-api')} ${chalk.green('aws-lambda')}`);
                 console.log();
                 console.log(
-                    `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
+                    `Run npx ${chalk.cyan(`${program.name()} --help`)} to see all options.`
                 );
                 process.exit(1);
             }
