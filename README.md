@@ -1,41 +1,56 @@
-# Serverless Api
-This library tries to create a single developer experience between AWS Lambda and Google Cloud Functions.  
+<img src="logo.png" align="right" />
 
----
+# Serverless Framework
+
+> This library creates a single developer experience between AWS Lambda and Google Cloud Functions.
+
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
 
 ## Contents
 
-* [Installation](#installation)
-  * [AWS Lambda](#aws-lambda)
-  * [Google Cloud Functions](#google-cloud-functions)
-* [Usage](#usage)
-  * [AWS Lambda](#aws-lambda)
-  * [Google Cloud Functions](#google-cloud-functions)
-* [Routing](#routing)
-  * [Methods](#methods)
-  * [Groups](#groups)
-  * [Middlewares](#middlewares)
-    * [Global](#global)
-    * [Per route](#per-route)
+TBD
 
-## Installation
+## Installation Options
 
-### create-serverless-api
+### Boilerplate
+
+`@serverless-framework/create` allows you to setup your serverless project quick and easy.
+It comes with a project structure and basic handler to get you started.
+Included tools:
+
+- [webpack](https://webpack.js.org/)
+- [serverless](https://www.serverless.com/framework/docs)
+- [typescript](https://www.typescriptlang.org/)
+
+#### AWS Lambda
 
 ```shell
-npx @serverless_api/create-serverless-api my-serverless-api
+npx @serverless-framework/create my-serverless-api aws-lambda
 ```
+
+#### Google Cloud Functions
+
+```shell
+npx @serverless-framework/create my-serverless-api google-cloud-functions
+```
+
+### Individual packages
+
+If you already have a project setup, or want to do your own setup.
 
 ### AWS Lambda
 
 ```shell
-npm install @serverless_api/core @serverless_api/aws-lambda
+npm install @serverless-framework/core @serverless-framework/aws-lambda
 ```
 
 ### Google Cloud Functions
 
 ```shell
-npm install @serverless_api/core @serverless_api/google-cloud-functions
+npm install @serverless-framework/core @serverless-framework/google-cloud-functions
 ```
 
 ## Usage
@@ -43,8 +58,8 @@ npm install @serverless_api/core @serverless_api/google-cloud-functions
 ### AWS Lambda
 
 ```typescript
-import { Request, Response } from '@serverless_api/core';
-import { createApi } from '@serverless_api/aws-lambda';
+import { Request, Response, HttpStatusCode } from '@serverless-framework/core';
+import { createApi } from '@serverless-framework/aws-lambda';
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 
 const api = createApi({
@@ -53,7 +68,7 @@ const api = createApi({
 });
 
 // url: api
-api.get('/', (req: Request, res: Response) => res.sendStatus(200));
+api.get('/', (req: Request, res: Response) => res.sendStatus(HttpStatusCode.OK));
 
 // url: api/articles/hello-world
 api.get('/articles/:slug', (req: Request<{ slug: string }>, res: Response) => {
@@ -68,16 +83,15 @@ export const handle = async (event: APIGatewayProxyEvent, context: Context) => a
 ### Google Cloud Functions
 
 ```typescript
-import { Request, Response } from '@serverless_api/core';
-import { createApi } from '@serverless_api/google-cloud-functions';
+import { Request, Response, HttpStatusCode } from '@serverless-framework/core';
+import { createApi } from '@serverless-framework/google-cloud-functions';
 
 const api = createApi({
-    version: '1.0.0',
-    base: 'api/',
+    base: '/api',
 });
 
 // url: api
-api.get('/', (req: Request, res: Response) => res.sendStatus(200));
+api.get('/', (req: Request, res: Response) => res.sendStatus(HttpStatusCode.OK));
 
 // url: api/articles/hello-world
 api.get('/articles/:slug', (req: Request<{ slug: string }>, res: Response) => {
@@ -91,80 +105,51 @@ export const handle = async (req: Request, res: Response) => await api.run(res, 
 
 ## Routing
 
+---
+
+### Stand-alone usage
+
+#### Installation
+
+The router is part of the core package, tough it can be used stand-alone as well.
+
+```shell
+npm install @serverless-framework/router
+```
+
+#### Usage
+
+```typescript
+import { Router, Request, Response } from '@serverless-framework/router';
+
+const router = new Router({
+    base: '/api',
+});
+
+// Setup routes
+router.get('/users', (req: Request, res: Response) => {
+    res.sendStatus(200);
+});
+
+// Get the path from your request and do a lookup
+const route = router.lookup('GET', '/api/users/1');
+
+// Handle the route
+if (route) route.handle(req, res);
+```
+
 ### Methods
 
-All default methods are supported.
-
-```typescript
-router.get('/api/users', (req: Request, res: Response) => {});
-router.post('/api/users/:id', (req: Request, res: Response) => {});
-router.put('/api/users/:id', (req: Request, res: Response) => {});
-router.patch('/api/users/:id', (req: Request, res: Response) => {});
-router.delete('/api/users/:id', (req: Request, res: Response) => {});
-router.head('/api/users/:id', (req: Request, res: Response) => {});
-router.options('/api/users/:id', (req: Request, res: Response) => {});
-```
-
 ### Groups
-
-```typescript
-const app = createApi({
-    base: '/api'
-});
-
-app.group('articles', (api) => {
-    api.get('', (req, res) => {});
-    api.get(':slug', (req, res) => {});
-});
-
-// Generated routes:
-// /api/articles
-// /api/articles/foo-bar
-```
 
 ### Middlewares
 
 #### Global
-```typescript
-
-function authMiddleware(req: Request, res: Response) {
-    // Returning false breaks the chain of middlewares
-    if (!req.hasHeader('token')) return false;
-}
-
-function userMiddleware(req: Request, res: Response) {
-    const token = req.getHeader('token');
-
-    // token validation
-    // ....
-    const id = 1;
-    
-    if (id) {
-        req.setHeader('user', id);
-    }
-}
-
-app.use(authMiddleware, userMiddleware);
-```
 
 #### Per route
-```typescript
-function authMiddleware(req: Request, res: Response) {
-    // Returning false breaks the chain of middlewares
-    if (!req.hasHeader('token')) return false;
-}
 
-function userMiddleware(req: Request, res: Response) {
-    const token = req.getHeader('token');
+## To-do
 
-    // token validation
-    // ....
-    const id = 1;
+- [ ] Azure support
 
-    if (id) {
-        req.setHeader('user', id);
-    }
-}
-
-router.get('/api/users', (req: Request, res: Response) => {}, authMiddleware, userMiddleware);
-```
+## Contribution

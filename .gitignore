@@ -6,3 +6,4 @@ tsconfig.tsbuildinfo
 !package-lock.json
 !README.md
 !tsconfig.json
+!logo.png
