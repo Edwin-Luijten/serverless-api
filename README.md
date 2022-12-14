@@ -30,6 +30,7 @@
     * [Middlewares](#middlewares)
         * [Global](#global)
         * [Per route](#per-route)
+        * [Per group](#per-group)
 * [To-do](#to-do)
 * [Contribution](#contribution)
 
@@ -190,6 +191,8 @@ if (route) route.handle(req, res);
 #### Global
 
 #### Per route
+
+#### Per group
 
 ## To-do
 
