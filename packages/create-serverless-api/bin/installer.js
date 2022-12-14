@@ -74,7 +74,7 @@ const customDependencies = {
 function init() {
     const program = new commander_1.Command(package_json_1.default.name);
     program.arguments('<project-directory> <type>')
-        .usage(`npx ${program.name()} ${chalk_1.default.green('<project-directory>')} ${chalk_1.default.cyan('<type>')} [OPTIONS]`)
+        .usage(`${chalk_1.default.green('<project-directory>')} ${chalk_1.default.cyan('<type>')} [OPTIONS]`)
         .action((name, _type) => {
         projectName = name;
         type = _type;

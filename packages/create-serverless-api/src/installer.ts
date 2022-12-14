@@ -51,7 +51,7 @@ const customDependencies = {
 export function init() {
     const program = new Command(packageJson.name);
     program.arguments('<project-directory> <type>')
-        .usage(`npx ${program.name()} ${chalk.green('<project-directory>')} ${chalk.cyan('<type>')} [OPTIONS]`)
+        .usage(`${chalk.green('<project-directory>')} ${chalk.cyan('<type>')} [OPTIONS]`)
         .action((name, _type) => {
             projectName = name;
             type = _type;
