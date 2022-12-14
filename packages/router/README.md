@@ -1,9 +1,10 @@
-# Serverless Api Router  
-This package is part of Serverless Api.  
+<img src="../../logo.png" align="right" />
 
----
+# Serverless Framework Router
 
-The router implements its routing based on the concept of a [radix tree](https://en.wikipedia.org/wiki/Radix_tree) ([trie](https://en.wikipedia.org/wiki/Trie)).
+> The router implements its routing based on the concept of a [radix tree](https://en.wikipedia.org/wiki/Radix_tree) ([trie](https://en.wikipedia.org/wiki/Trie)).
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
 ## Contents
 
@@ -15,7 +16,7 @@ The router implements its routing based on the concept of a [radix tree](https:/
 ## Installation
 
 ```shell
-npm install @serverless_api/router
+npm install @serverless-framework/router
 ```
 
 ## Creating routes

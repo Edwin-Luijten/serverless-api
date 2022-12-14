@@ -9,20 +9,24 @@ export type Route = {
 }
 
 export class Tree {
-    private root: Node | null = null;
+    private _root: Node | null = null;
     protected method: string;
 
     constructor(method: string) {
         this.method = method;
     }
 
-    add(path: string, handler: RequestHandler, middlewares: MiddlewareHandler[]) {
+    get root(): Node | null {
+        return this._root;
+    }
+
+    add(path: string, handler: RequestHandler, middlewares: MiddlewareHandler[] = []) {
         if (!path.startsWith('/')) throw new Error(`Path must begin with '/' in path ${path}`);
 
-        if (!this.root) this.root = new Node('', '');
+        if (!this._root) this._root = new Node('', '');
 
         const fullPath = path;
-        let node = this.root;
+        let node = this._root;
 
         node.priority++;
 
@@ -148,7 +152,7 @@ export class Tree {
     }
 
     get(path: string): Route | null {
-        let node = this.root;
+        let node = this._root;
 
         if (!node) return null;
 
