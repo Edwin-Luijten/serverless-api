@@ -11,7 +11,28 @@
 
 ## Contents
 
-TBD
+* [Installation Options](#installation-options)
+    * [Boilerplate](#boilerplate)
+        * [Usage](#boilerplate-usage)
+        * [AWS Lambda](#boilerplate-aws-lambda)
+        * [Google Cloud Functions](#boilerplate-google-cloud-functions)
+    * [Individual packages](#individual-packages)
+    * [AWS Lambda](#individual-packages-aws-lambda)
+    * [Google Cloud Functions](#individual-packages-google-cloud-functions)
+* [Usage](#usage)
+    * [AWS Lambda](#usage-aws-lambda)
+    * [Google Cloud Functions](#usage-google-cloud-functions)
+* [Routing](#routing)
+    * [Stand-alone usage](#stand-alone-usage)
+        * [Installation](#installation)
+        * [Usage](#routing-usage)
+    * [Methods](#methods)
+    * [Groups](#groups)
+    * [Middlewares](#middlewares)
+        * [Global](#global)
+        * [Per route](#per-route)
+* [To-do](#to-do)
+* [Contribution](#contribution)
 
 ## Installation Options
 
@@ -25,6 +46,7 @@ Included tools:
 - [Webpack](https://webpack.js.org/)
 - [Serverless](https://www.serverless.com/framework/docs)
 - [Typescript](https://www.typescriptlang.org/)
+  <a name="boilerplate-usage"></a>
 
 #### Usage
 
@@ -37,11 +59,15 @@ Options:
     <type> aws-lambda or google-cloud-functions.
 ```
 
+<a name="boilerplate-aws-lambda"></a>
+
 #### AWS Lambda
 
 ```shell
 npx @serverless-framework/create my-serverless-api aws-lambda
 ```
+
+<a name="boilerplate-google-cloud-functions"></a>
 
 #### Google Cloud Functions
 
@@ -52,12 +78,15 @@ npx @serverless-framework/create my-serverless-api google-cloud-functions
 ### Individual packages
 
 If you already have a project setup, or want to do your own setup.
+<a name="individual-packages-aws-lambda"></a>
 
 ### AWS Lambda
 
 ```shell
 npm install @serverless-framework/core @serverless-framework/aws-lambda
 ```
+
+<a name="individual-packages-google-cloud-functions"></a>
 
 ### Google Cloud Functions
 
@@ -66,6 +95,8 @@ npm install @serverless-framework/core @serverless-framework/google-cloud-functi
 ```
 
 ## Usage
+
+<a name="usage-aws-lambda"></a>
 
 ### AWS Lambda
 
@@ -90,6 +121,8 @@ api.get('/articles/:slug', (req: Request<{ slug: string }>, res: Response) => {
 
 export const handle = async (event: APIGatewayProxyEvent, context: Context) => await api.run(event, context);
 ```
+
+<a name="usage-google-cloud-functions"></a>
 
 ### Google Cloud Functions
 
@@ -127,6 +160,8 @@ The router is part of the core package, tough it can be used stand-alone as well
 ```shell
 npm install @serverless-framework/router
 ```
+
+<a name="routing-usage"></a>
 
 #### Usage
 
