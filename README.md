@@ -21,10 +21,19 @@ TBD
 It comes with a project structure and basic handler to get you started.
 Included tools:
 
-- [webpack](https://webpack.js.org/)
-- [serverless](https://www.serverless.com/framework/docs)
-- [typescript](https://www.typescriptlang.org/)
+- [Webpack](https://webpack.js.org/)
+- [Serverless](https://www.serverless.com/framework/docs)
+- [Typescript](https://www.typescriptlang.org/)
 
+#### Usage
+```shell
+Usage: @serverless-framework/create <project-directory> <type> [OPTIONS]
+
+Options:
+  -h, --help  display help for command
+    <project-directory> <type> are required.
+    <type> aws-lambda or google-cloud-functions.
+```
 #### AWS Lambda
 
 ```shell
@@ -63,8 +72,7 @@ import { createApi } from '@serverless-framework/aws-lambda';
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 
 const api = createApi({
-    version: '1.0.0',
-    base: 'api/',
+    base: '/api',
 });
 
 // url: api
@@ -150,6 +158,10 @@ if (route) route.handle(req, res);
 
 ## To-do
 
+- [ ] Documentation
+- [ ] Core functionality
+- [x] AWS Lambda support
+- [ ] Google Cloud Functions support
 - [ ] Azure support
 
 ## Contribution
