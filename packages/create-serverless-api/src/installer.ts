@@ -246,6 +246,7 @@ function run(root: string, appName: string, originalDirectory: string, type: str
     const dependencies = commonDependencies.default.concat([`@serverless_api/${type}`]).concat(customDependencies[type].default);
     const devDependencies = commonDependencies.dev.concat(customDependencies[type].dev)
     console.log('Installing packages. This might take a couple of minutes.');
+    console.log(`Installing ${chalk.green(commonDependencies.default.join(chalk.white(',')))} and ${chalk.cyan(`@serverless_api/${type}`)}`);
 
     return install(root, dependencies).catch(reason => {
         console.log();
